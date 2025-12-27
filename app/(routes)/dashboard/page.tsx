@@ -3,10 +3,27 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { WebsiteType } from "@/configs/type";
+import axios from "axios";
+import WebsiteCard from "./_components/WebsiteCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function Dashboard() {
-  const [websiteList, setWebsiteList] = useState([]);
+  const [websiteList, setWebsiteList] = useState<WebsiteType[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const GetUserWebsite = async () => {
+    setLoading(true);
+    const result = await axios.get("/api/website");
+    setWebsiteList(result?.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    GetUserWebsite();
+  }, []);
+
   return (
     <div className="mt-8">
       <div className="flex justify-between items-center">
@@ -16,7 +33,19 @@ function Dashboard() {
         </Link>
       </div>
       <div>
-        {websiteList.length == 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {[1, 2, 3, 4].map((item, index) => (
+              <div className="p-4" key={index}>
+                <div className="flex gap-2 items-center">
+                  <Skeleton className="h-8 w-8 rounded-sm" />
+                  <Skeleton className="h-8 w-1/2 rounded-sm" />
+                </div>
+                <Skeleton className="h-[80px] w-full mt-4" />
+              </div>
+            ))}
+          </div>
+        ) : websiteList.length == 0 ? (
           <div className="flex flex-col justify-center items-center gap-4 p-8 border-2 border-dashed rounded-2xl mt-5">
             <Image
               src={"/website.png"}
@@ -30,7 +59,11 @@ function Dashboard() {
             </Link>
           </div>
         ) : (
-          <div> </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-5">
+            {websiteList.map((website, index) => (
+              <WebsiteCard key={index} website={website} />
+            ))}
+          </div>
         )}
       </div>
     </div>

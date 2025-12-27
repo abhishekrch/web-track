@@ -49,7 +49,7 @@ function WebsiteForm() {
         "/dashboard/new?step=script&websiteId=" +
           result.data.websiteId +
           "&domain=" +
-          result.data.domain
+          result.data.domain,
       );
     } catch (error: any) {
       console.error(error);

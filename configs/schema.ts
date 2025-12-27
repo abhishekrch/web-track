@@ -13,4 +13,4 @@ export const websiteTable = pgTable("websites", {
   timeZone: varchar({ length: 255 }).notNull(),
   enableLocalhostTracking: boolean().default(false),
   userEmail: varchar({ length: 255 }).notNull(),
-})
+});

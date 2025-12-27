@@ -45,9 +45,7 @@
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
@@ -114,16 +112,12 @@
         "websites_websiteId_unique": {
           "name": "websites_websiteId_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "websiteId"
-          ]
+          "columns": ["websiteId"]
         },
         "websites_domain_unique": {
           "name": "websites_domain_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "domain"
-          ]
+          "columns": ["domain"]
         }
       },
       "policies": {},
